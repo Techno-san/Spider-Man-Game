@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
-	<meta name="description"
-                content="A Simple Spiderman Game in HTML5, CSS3 and Javascript" />
-        <meta name="author" content="Chandula Janith (RedEdge967)" />
+	<meta name="description" content="A Simple Spiderman Game in HTML5, CSS3 and Javascript" />
+	<meta name="author" content="Chandula Janith (RedEdge967)" />
 	<title>Spider-Man Game | A spiderman game to fight with more Villains of Spider-Man</title>
 	<link rel="shortcut icon" href="images/spider-head.png" />
 </head>
@@ -16,6 +16,16 @@
 		margin: 0;
 		font-size: 0;
 		background: #000;
+	}
+
+	@media (max-width: 768px) {
+		body {
+			transform: rotate(90deg);
+			transform-origin: center;
+			height: 100vw;
+			width: 100vh;
+			overflow: hidden;
+		}
 	}
 
 	.canvas-wrapper {
@@ -32,19 +42,19 @@
 	}
 
 	.key {
-	    height: 30px;
-	    min-width: 20px;
-	    line-height: 30px;
-	    text-align: center;
-	    border: 1px solid #ccc;
-	    border-bottom: 3px solid #bbb;
-	    background: white;
-	    display: inline-block;
-	    padding: 0 5px;
-	    border-radius: 5px;
-	    box-shadow: inset 0 -1px 0 #ccc;
-	    color: #333;
-	    font-weight: bold;
+		height: 30px;
+		min-width: 20px;
+		line-height: 30px;
+		text-align: center;
+		border: 1px solid #ccc;
+		border-bottom: 3px solid #bbb;
+		background: white;
+		display: inline-block;
+		padding: 0 5px;
+		border-radius: 5px;
+		box-shadow: inset 0 -1px 0 #ccc;
+		color: #333;
+		font-weight: bold;
 	}
 
 	.key.spacebar {
@@ -54,8 +64,8 @@
 	.keyboard {
 		margin: 5px 0;
 		font-size: 15px;
-	    font-family: Helvetica;
-	    color: white;
+		font-family: Helvetica;
+		color: white;
 	}
 
 	.action {
@@ -71,36 +81,121 @@
 		margin-top: 20px;
 	}
 </style>
+
 <body>
 	<div class="canvas-wrapper">
-		<div class="keyboard">
-			<div class="key spacebar">Spacebar</div>
-			<span class="action">- Shoot</span>
-
-			<div class="key">←</div>
-			<div class="key">→</div>
-			<span class="action">- Left/Right</span>
-
-			<div class="key">↑</div>
-			<span class="action">- Jump</span>
-
-			<div class="key">Esc</div>
-			<span class="action">- Pause</span>
-		</div>
 		<canvas id="canvas"></canvas>
+
+		<!-- On-Screen Controls for Mobile -->
+		<div class="controls">
+			<!-- Left Side Controls -->
+			<div class="left-controls">
+				<button class="control-btn" id="left">⬅️</button>
+				<button class="control-btn" id="jump">⬆️</button>
+				<button class="control-btn" id="slide">⬇️</button>
+				<button class="control-btn" id="right">➡️</button>
+			</div>
+
+			<!-- Right Side Attack Button -->
+			<button class="attack-btn" id="attack">🕷️</button>
+		</div>
 		<div class="link">
-			No Internet ! Source code on 
+			No Internet ! Source code on
 			<a href="https://github.com/RedEdge967/mini-spidey" target="_blank">Github</a>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var game = new SpidermanGame({ canvas: "#canvas" });
+		game.load();
+
+		// Function to handle both touch and click events
+		function addControlEvent(id, action) {
+			const button = document.getElementById(id);
+			button.addEventListener("touchstart", (e) => { e.preventDefault(); action(); });
+			button.addEventListener("click", action);
+		}
+
+		// Connect buttons to game actions
+		addControlEvent("left", () => game.moveLeft());
+		addControlEvent("right", () => game.moveRight());
+		addControlEvent("jump", () => game.jump());
+		addControlEvent("slide", () => game.slide());
+		addControlEvent("attack", () => game.attack());
+	</script>
+
+	<style>
+		/* Mobile-Friendly Controls */
+		.controls {
+			position: fixed;
+			bottom: 5px;
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			pointer-events: none;
+		}
+
+		/* Left Side Controls - Arranged in Circular Pattern */
+		.left-controls {
+			position: absolute;
+			left: 20px;
+			bottom: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			width: 140px;
+			height: 140px;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			pointer-events: auto;
+		}
+
+		/* Right Side Attack Button */
+		.attack-btn {
+			position: absolute;
+			right: 20px;
+			bottom: 40px;
+			width: 80px;
+			height: 80px;
+			font-size: 20px;
+			border-radius: 50%;
+			background: rgb(255, 255, 255);
+			color: white;
+			border: none;
+			cursor: pointer;
+			pointer-events: auto;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+		}
+
+		/* Circular Control Buttons */
+		.control-btn {
+			width: 60px;
+			height: 60px;
+			font-size: 18px;
+			border-radius: 50%;
+			background: black;
+			color: white;
+			border: none;
+			cursor: pointer;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+			pointer-events: auto;
+		}
+
+		/* Prevent Selection & Highlight */
+		button {
+			user-select: none;
+			touch-action: manipulation;
+		}
+	</style>
 </body>
 <script type="text/javascript" src="spiderman-game.js"></script>
+<script type="text/javascript" src="mobile.js"></script>
 <script type="text/javascript">
 
-var game = new SpidermanGame({
-	canvas: "#canvas"
-});
-game.load();
+	var game = new SpidermanGame({
+		canvas: "#canvas"
+	});
+	game.load();
 
 </script>
+
 </html>
