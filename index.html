@@ -17,6 +17,7 @@
 		font-size: 0;
 		background: #000;
 	}
+		/*
 
 	@media (max-width: 768px) {
 		body {
@@ -26,7 +27,7 @@
 			width: 100vh;
 			overflow: hidden;
 		}
-	}
+	}*/
 
 	.canvas-wrapper {
 		float: left;
@@ -88,17 +89,24 @@
 
 		<!-- On-Screen Controls for Mobile -->
 		<div class="controls">
-			<!-- Left Side Controls -->
+			<!-- Left Side: Move Left & Right -->
 			<div class="left-controls">
 				<button class="control-btn" id="left">⬅️</button>
-				<button class="control-btn" id="jump">⬆️</button>
-				<button class="control-btn" id="slide">⬇️</button>
 				<button class="control-btn" id="right">➡️</button>
 			</div>
+	
+			<!-- Right Side: Jump, Slide, Attack -->
+			<div class="right-controls">
+				<button class="control-btn" id="jump">⬆️</button>
+				<button class="control-btn" id="slide">⬇️</button>
+			</div>
 
-			<!-- Right Side Attack Button -->
-			<button class="attack-btn" id="attack">🕷️</button>
+			<!-- Right Side:  Attack -->
+			<div class="attack-controls">
+				<button class="attack-btn" id="attack">🕷️</button>
+			</div>
 		</div>
+	
 		<div class="link">
 			No Internet ! Source code on
 			<a href="https://github.com/RedEdge967/mini-spidey" target="_blank">Github</a>
@@ -124,67 +132,80 @@
 	</script>
 
 	<style>
-		/* Mobile-Friendly Controls */
-		.controls {
-			position: fixed;
-			bottom: 5px;
-			width: 100%;
-			display: flex;
-			justify-content: space-between;
-			pointer-events: none;
-		}
+        /* Mobile Controls Layout */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
 
-		/* Left Side Controls - Arranged in Circular Pattern */
-		.left-controls {
-			position: absolute;
-			left: 20px;
-			bottom: 20px;
-			display: flex;
-			flex-wrap: wrap;
-			width: 140px;
-			height: 140px;
-			justify-content: center;
-			align-items: center;
-			gap: 10px;
-			pointer-events: auto;
-		}
+        /* Left Side Controls (Move Left & Right) */
+        .left-controls {
+            position: absolute;
+            left: 20px;
+            bottom: 40px;
+            display: flex;
+            gap: 20px;
+            pointer-events: auto;
+        }
 
-		/* Right Side Attack Button */
-		.attack-btn {
-			position: absolute;
-			right: 20px;
-			bottom: 40px;
-			width: 80px;
-			height: 80px;
-			font-size: 20px;
-			border-radius: 50%;
-			background: rgb(255, 255, 255);
-			color: white;
-			border: none;
-			cursor: pointer;
-			pointer-events: auto;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-		}
+        /* Right Side Controls (Jump, Slide, Attack) */
+        .right-controls {
+            position: absolute;
+            right: 20px;
+            bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: auto;
+        }
 
-		/* Circular Control Buttons */
-		.control-btn {
-			width: 60px;
-			height: 60px;
-			font-size: 18px;
-			border-radius: 50%;
-			background: black;
-			color: white;
-			border: none;
-			cursor: pointer;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-			pointer-events: auto;
-		}
+		.attack-controls {
+            position: absolute;
+            right: 100px;
+            bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: auto;
+        }
 
-		/* Prevent Selection & Highlight */
-		button {
-			user-select: none;
-			touch-action: manipulation;
-		}
+        /* Circular Control Buttons */
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 18px;
+            border-radius: 50%;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+
+        /* Attack Button (Bigger & Red) */
+        .attack-btn {
+            width: 70px;
+            height: 70px;
+            font-size: 20px;
+            border-radius: 50%;
+            background: rgb(249, 244, 244);
+            color: rgb(255, 253, 253);
+            border: none;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Prevent Selection & Highlight */
+        button {
+            user-select: none;
+            touch-action: manipulation;
+        }
 	</style>
 </body>
 <script type="text/javascript" src="spiderman-game.js"></script>
